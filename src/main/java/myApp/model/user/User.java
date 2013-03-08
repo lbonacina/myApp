@@ -29,7 +29,7 @@ public class User implements Serializable {
 
     private final static int NUMBER_OF_ATTEMPTS_BEFORE_LOCKED_ACCOUNT = 3 ;
     private static final PasswordService passwordService = new DefaultPasswordService();
-    private final static String DEFAULT_PASSWORD = "12345678" ;
+    private final static String DEFAULT_PASSWORD = "1234Abcd" ;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +61,7 @@ public class User implements Serializable {
     private String username;
 
     @NotNull
-    @Column(length = 200)
+    @Column(length = 200) // no check here, since password is crypted at this point, check is on AccountController
     private String password;
 
     // on new and reset password 'events' we need the decrypted password to be sent to the user, so we store it here

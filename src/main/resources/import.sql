@@ -41,11 +41,11 @@ insert into role_permission (role_id,permission_id) values ( 2, 10);
 insert into role_permission (role_id,permission_id) values ( 3, 2);
 insert into role_permission (role_id,permission_id) values ( 3, 3);
 
-INSERT INTO user (id, firstName, lastName, email, phone, username, password, enabled, superadmin, pwd_change_on_next_login, failed_login_attempt_count)  VALUES (1, 'Jane', 'Doe', 'jane@super.com', '2125551212', 'wakka', '$shiro1$SHA-256$500000$no8bF4L6ou/rwcuv0/7qNw==$qOuLZWUSVBw6KJ+acoajJuDPeeoYoU33bdiYpQivvvo=', true, true, false, 0) ;
+INSERT INTO user (id, firstName, lastName, email, phone, username, password, enabled, superadmin, pwd_change_on_next_login, failed_login_attempt_count)  VALUES (1, 'Jane', 'Doe', 'jane@super.com', '2125551212', 'wakka', '$shiro1$SHA-256$500000$C9N4UVCBJWUfaje7RHclKg==$zR5fEFq7WYeYKQhaVfo+ofOVsR7qg+9ZrxGPunooVPI=', true, true, false, 0) ;
 INSERT INTO user_role (user_id,role_id) values (1,1) ;
 
-INSERT INTO user (id, firstName, lastName, email, phone, username, password, enabled, superadmin, pwd_change_on_next_login, failed_login_attempt_count)  VALUES (2, 'Paul', 'Smith', 'admin@mail.com', '2125551212', 'admin', '$shiro1$SHA-256$500000$yZnmkAQSFkP6MnlRAOisng==$LW6he2w5PcPhJC0CBLBtnH4QrkgxPb8Xt9/U0y0/dfc=', true, false, false, 0) ;
+INSERT INTO user (id, firstName, lastName, email, phone, username, password, enabled, superadmin, pwd_change_on_next_login, failed_login_attempt_count)  VALUES (2, 'Paul', 'Smith', 'admin@mail.com', '2125551212', 'admin', '$shiro1$SHA-256$500000$EcP/N3o7Vn7pDiFTtBH8lQ==$L/dtCPlr68zXc98P2cIXYFmyWHBbkD8V7eARwRcjJSc=', true, false, false, 0) ;
 INSERT INTO user_role (user_id,role_id) values (2,2) ;
 
-INSERT INTO user (id, firstName, lastName, email, phone, username, password, enabled, superadmin, pwd_change_on_next_login, failed_login_attempt_count)  VALUES (3, 'Teresa', 'Pinkerton', 'pinkerton@mail.com', '1234567890', 'tpink', '$shiro1$SHA-256$500000$vOVu8tgm+Z6ameq9ba7OvQ==$u1oFuOyrP6jq+vwiVpT57Cx+mxX4F44hXHX3Df4G+bI=', true, false, true, 0) ;
+INSERT INTO user (id, firstName, lastName, email, phone, username, password, enabled, superadmin, pwd_change_on_next_login, failed_login_attempt_count)  VALUES (3, 'Teresa', 'Pinkerton', 'pinkerton@mail.com', '1234567890', 'tpink', '$shiro1$SHA-256$500000$TNzQver69Kk5WVUO9iU/4Q==$cxOh2us2P0eJAA0CMHt+LWwN1n0sHyKq8vO8jvB/H0E=', true, false, true, 0) ;
 INSERT INTO user_role (user_id,role_id) values (3,3) ;

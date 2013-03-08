@@ -14,6 +14,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Named("account_ctrl")
@@ -28,6 +29,10 @@ public class AccountController implements Serializable {
     @Inject private UserService userService;
     @Inject @LoggedUser private User user;
 
+    // regexp check on password creation
+    // no one force passwords created straight from script or generated from reset to follow the rules,
+    // but we comply anyway
+    @Pattern(regexp = "^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z]).*$", message = "must be 8 char long, 1 uppercase, 1 number")
     private String password ;
     private String passwordConfirm;
 
