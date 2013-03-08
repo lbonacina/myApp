@@ -1,0 +1,34 @@
+<configuration>
+
+    <!-- remember to set the LOG_ROOT_DIR when launching java (-DLOG_ROOT_DIR=/jboss-as-7.1.1.Final/standalone/log) -->
+    <!-- log should probably rolled at some time/size, see http://logback.qos.ch/manual/appenders.html -->
+    <appender name="LOG" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_ROOT_DIR}/myapp.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%date{HH:mm:ss} %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="myApp" level="DEBUG">
+    </logger>
+
+    <logger name="org.apache.shiro" level="WARNING">
+    </logger>
+
+    <logger name="org.springframework" level="WARNING">
+    </logger>
+
+    <!-- by default log goes to LOG appender -->
+    <root level="ERROR">
+        <appender-ref ref="LOG" />
+        <appender-ref ref="STDOUT"/> <!-- for dev purpose only, print all to stdout and then JBoss prints it in is server.log -->
+    </root>
+
+</configuration>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui">
+<h:head>
+    <title>myApp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- CSS inclusion, see note above -->
+    <h:outputStylesheet name="css/screen.css"/>
+</h:head>
+<h:body>
+
+    <f:metadata>
+        <o:enableRestorableView/>
+    </f:metadata>
+
+    <h:form id="login_form">
+
+
+        <p:panelGrid columns="2" style="width:400px;margin-top:200px;margin-left:auto;margin-right:auto;">
+            <f:facet name="header">
+                <h:outputLabel id="form_lbl" value="#{msg.welcome}"/>
+            </f:facet>
+            <h:outputLabel for="username_i" value="Username : "/>
+            <h:inputText id="username_i" value="#{auth_ctrl.username}" required="true"/>
+            <h:outputLabel for="password_i" value="Password : "/>
+            <h:inputSecret id="password_i" value="#{auth_ctrl.password}" required="true"/>
+            <f:facet name="footer">
+                    <p:commandButton id="submit_btn" action="#{auth_ctrl.login}" ajax="false" style="clear:left;"
+                                     icon="ui-icon-play" iconPos="right" value="Login"/>
+                    <p:messages id="loginError_msg" style="clear:left;"/>
+                    <p:outputLabel id="sessionExpired_lbl" value="#{msg.sessionExpired}" rendered="#{param.reason == 'expired'}" style="clear:left;"/>
+            </f:facet>
+        </p:panelGrid>
+
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/resources/templates/default.xhtml">
+    <ui:define name="content">
+
+        <h:form id="users_form">
+
+            <pe:layoutPane position="north" size="40" resizable="false" closable="false">
+                <h:outputText id="page_title" styleClass="page-title"
+                              value="#{msg.page_title_personal}"/>
+            </pe:layoutPane>
+
+            <pe:layoutPane styleClassContent="page_layout_center ui-widget" position="center" resizable="false" closable="false">
+
+                <p:panel id="user_details" header="#{msg.page_title_personal}" style="margin-bottom:10px;">
+
+                    <p:outputPanel styleClass="input_form ui-helper-clearfix">
+
+                        <p:outputLabel styleClass="dialogLabel" value="First Name : "/>
+                        <p:inputText id="firstName" value="#{personal_ctrl.user.firstName}"/>
+                        <p:message id="firstNameMsg" for="firstName"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Last Name : "/>
+                        <p:inputText id="lastName" value="#{personal_ctrl.user.lastName}"/>
+                        <p:message id="lastNameMsg" for="lastName"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Email : "/>
+                        <p:inputText id="email" value="#{personal_ctrl.user.email}"/>
+                        <p:message id="emailMsg" for="email"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Phone : "/>
+                        <p:inputText id="phone" value="#{personal_ctrl.user.phone}"/>
+                        <p:message id="phoneMsg" for="phone"/>
+
+                        <p:messages id="global_msgs" globalOnly="true"/>
+
+                    </p:outputPanel>
+
+                </p:panel>
+
+                <p:commandButton value="Save" action="#{personal_ctrl.save}" update="user_details"/>
+
+            </pe:layoutPane>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

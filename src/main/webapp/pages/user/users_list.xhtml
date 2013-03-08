@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/resources/templates/default.xhtml">
+    <ui:define name="content">
+
+        <h:form id="users_form">
+
+            <pe:layoutPane position="north" size="40" resizable="false" closable="false">
+                <h:outputText id="page_title" styleClass="page-title"
+                              value="#{msg.page_title_users} - #{user_ctrl.fieldsetHeader}"/>
+            </pe:layoutPane>
+
+            <pe:layoutPane position="west" size="280" resizable="false" closable="false">
+
+                <p:toolbar>
+                    <p:toolbarGroup align="left">
+                        <p:commandButton id="add_user_btn" icon="add_user_icon" action="#{user_ctrl.create}"
+                                         update="user_details page_title"/>
+                        <p:commandButton id="delete_user_btn" icon="delete_user_icon" action="#{user_ctrl.delete}"
+                                         update="user_details page_title"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:selectOneListbox id="users_list" styleClass="users_listbox" value="#{user_ctrl.selectedUser}"
+                                    converter="userSelectItemsConverter" var="u">
+                    <f:selectItems value="#{usersList}" var="user" itemLabel="#{user.fullName}"
+                                   itemValue="#{user}"/>
+                    <p:ajax update="user_details page_title" listener="#{user_ctrl.selectionListener}"/>
+                    <p:column>
+                        <h:outputText value="#{u.fullName}"/>
+                    </p:column>
+                    <p:column>
+                        <h:graphicImage width="16"
+                                        value="#{u.enabled ? resource['images/user_enabled.ico'] : resource['images/user_disabled.ico']}"/>
+                    </p:column>
+                    <p:column>
+                        <h:graphicImage width="16" value="#{u.locked ? resource['images/user_locked.ico'] : ''}"/>
+                    </p:column>
+                </p:selectOneListbox>
+
+            </pe:layoutPane>
+
+            <pe:layoutPane styleClassContent="page_layout_center ui-widget" position="center">
+
+                <p:outputPanel id="user_details">
+
+                    <!-- use of ui-helper-clearfix (provided by PF) to avoid collapsing div, see answer to
+                         http://stackoverflow.com/questions/218760/how-do-you-keep-parents-of-floated-elements-from-collapsing -->
+                    <p:outputPanel styleClass="input_form ui-helper-clearfix"
+                                   rendered="#{user_ctrl.selectedUser != null}">
+
+                        <p:outputLabel styleClass="dialogLabel" value="First Name : "/>
+                        <p:inputText id="firstName" value="#{user_ctrl.selectedUser.firstName}"/>
+                        <p:message id="firstNameMsg" for="firstName"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Last Name : "/>
+                        <p:inputText id="lastName" value="#{user_ctrl.selectedUser.lastName}"/>
+                        <p:message id="lastNameMsg" for="lastName"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Email : "/>
+                        <p:inputText id="email" value="#{user_ctrl.selectedUser.email}"/>
+                        <p:message id="emailMsg" for="email"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Phone : "/>
+                        <p:inputText id="phone" value="#{user_ctrl.selectedUser.phone}"/>
+                        <p:message id="phoneMsg" for="phone"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Username : "/>
+                        <p:inputText id="username" value="#{user_ctrl.selectedUser.username}"/>
+                        <p:message id="usernameMsg" for="username"/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Enabled : "/>
+                        <p:selectBooleanCheckbox value="#{user_ctrl.selectedUser.enabled}"/>
+                        <h:outputText value=""/>
+
+                        <p:outputLabel styleClass="dialogLabel" value="Roles : "/>
+
+                        <p:pickList id="roles" style="float:left;" value="#{user_ctrl.rolesPickList}" var="role"
+                                    itemLabel="#{role}" itemValue="#{role}">
+                        </p:pickList>
+                        <p:message id="rolesMsg" for="roles"/>
+
+                        <p:outputPanel style="float:left;">
+                            <p:messages id="global_msgs" globalOnly="true"/>
+                        </p:outputPanel>
+
+                    </p:outputPanel>
+
+                    <!-- WARNING : here partial processing with process="user_details" is vital, since if we submit
+                         the entire form the selectedUser will end 'null' on create new user scenario since
+                         we do not have any selection on the table, the alternative is to use a different
+                         variable for selection and creation -->
+                    <p:commandButton id="save_btn" value="Save" action="#{user_ctrl.save}"
+                                     rendered="#{user_ctrl.selectedUser != null}"
+                                     process="user_details" update="user_details users_list"/>
+
+                    <p:commandButton id="resetpwd_btn" value="Reset Pwd &amp; Unlock"
+                                     action="#{user_ctrl.resetPasswordAndUnlock}"
+                                     rendered="#{(user_ctrl.selectedUser != null) and (user_ctrl.newUserFlag == false)}"
+                                     process="user_details" update="user_details users_list"/>
+
+                </p:outputPanel>
+
+            </pe:layoutPane>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

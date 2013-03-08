@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="primary">
+        <!-- If you are running in a production environment, add a managed data source, the example data source is just for development and testing! -->
+        <jta-data-source>java:jboss/datasources/myAppDS</jta-data-source>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <!-- beware ! show sql on stdout -->
+            <property name="hibernate.show_sql" value="true"/>
+            <!-- by enabling the cache we automatically bind the Infinispan cache of JBoss -->
+            <property name="hibernate.cache.use_second_level_cache" value="true"/>
+            <property name="hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.cache.infinispan.statistics" value="true"/>
+            <!-- support multi line SQL import, but complains a lot about strange errors... -->
+            <!-- property name="hibernate.hbm2ddl.import_files_sql_extractor" value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor"/ -->
+        </properties>
+    </persistence-unit>
+</persistence>

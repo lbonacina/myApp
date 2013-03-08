@@ -1,0 +1,125 @@
+/* Core styles for the page */
+body {
+  margin: 0;
+  padding: 5px;
+  font-size: 11px;
+/*
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+*/
+}
+
+.page_layout_north {
+    overflow-y: hidden;
+    padding: 0 !important;
+    border: 0 none ;
+}
+
+.page_layout_center {
+    padding: 20px ;
+}
+
+.page_toolbar {
+    height: 50px;
+    background: #01325A none ;
+    color : white;
+}
+
+.nav_menu {
+    border: 0 none !important;
+}
+
+
+.ui-outputlabel {
+    font-weight: bold;
+}
+
+.page-title {
+    font-size: 2em;
+    font-weight: bold;
+}
+/*
+   input form without the grids, all based on floating & clearing
+   remember to use  use of class 'ui-helper-clearfix' (provided by PF) to avoid collapsing div of all floating content,
+   see answer to : http://stackoverflow.com/questions/218760/how-do-you-keep-parents-of-floated-elements-from-collapsing
+*/
+
+.input_form {
+    padding: 20px;
+}
+.input_form .dialogLabel {
+    padding: 2px;
+    margin: 4px 4px 10px;
+    width: 80px;
+    float:left;
+    clear:left;
+}
+
+.input_form .ui-message-error {
+    float:left;
+}
+
+.input_form input {
+    float:left;
+    width: 300px;
+}
+
+.input_form .ui-chkbox {
+    margin-top: 3px;
+    float:left;
+}
+
+.account_details {
+    margin-top: 50px;
+    width: 600px;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+
+.account_input_form .dialogLabel {
+    width: 130px;
+}
+
+.account_input_form input {
+    float:left;
+    width: 150px;
+}
+
+/*
+    some CSS hacking to fix the rendering of the users list
+*/
+
+.users_listbox {
+    border: 0 none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    background: none  !important;
+    width:240px !important;
+}
+
+.ui-selectlistbox-list tr {
+    height: 22px !important;
+}
+
+.ui-selectlistbox-list tr > td:first-child {
+    width: 200px !important;
+}
+
+/*
+    icons for buttons
+*/
+
+.add_user_icon {
+    background-image: url(#{resource['images/user_add.ico']}) !important;
+}
+
+.delete_user_icon {
+    background-image: url(#{resource['images/user_delete.ico']}) !important;
+}
+
+.full_screen_icon {
+    background-image: url(#{resource['images/view_fullsceen.ico']}) !important;
+}

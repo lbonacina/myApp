@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+   <!-- This descriptor activates the JSF 2.0 Servlet -->
+
+    <!-- Ajax Exception Handler from Omnifaces : http://balusc.blogspot.it/2012/03/full-ajax-exception-handler.html -->
+    <!-- uses standard web.xml excepion handling for Ajax request -->
+    <factory>
+        <exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+
+    <!-- dichiariamo un resource bundle da cui si possono attingere messaggi di errore ed eventualmente in futuro
+         anche tutti i messaggi tipo label, bottoni, header per una internalizzazione completa dell'app.
+         il bundle e' accessibilte tramite EL expression con la variabile 'esmmt' -->
+    <!-- il message bundle 'Messagebundle' contiene una customizzazione per permettere di usare Bean Validation JSR-303
+         invece della validazione standard JSF (ie 'required') -->
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>bundles.myApp</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <message-bundle>bundles.MessageBundle</message-bundle>
+    </application>
+
+</faces-config>

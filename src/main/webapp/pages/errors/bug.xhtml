@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:of="http://omnifaces.org/functions">
+
+<h:head>
+</h:head>
+
+<h:body>
+    <f:view contentType="text/html">
+        <ul>
+            <li>Date/time: #{of:formatDate(now, 'yyyy-MM-dd HH:mm:ss')}</li>
+            <li>User agent: #{header['user-agent']}</li>
+            <li>User IP: #{request.remoteAddr}</li>
+            <li>Request URI: <a
+                    href="#{requestScope['javax.servlet.error.request_uri']}">#{requestScope['javax.servlet.error.request_uri']}</a>
+            </li>
+            <li>Ajax request: #{facesContext.partialViewContext.ajaxRequest ? 'Yes' : 'No'}</li>
+            <li>Status code: #{requestScope['javax.servlet.error.status_code']}</li>
+            <li>Exception type: #{requestScope['javax.servlet.error.exception_type']}</li>
+            <li>Exception message: #{requestScope['javax.servlet.error.message']}</li>
+            <li>Stack trace:
+                <pre><code>#{of:printStackTrace(requestScope['javax.servlet.error.exception'])}</code></pre>
+            </li>
+        </ul>
+        <h:outputScript rendered="#{facesContext.partialViewContext.ajaxRequest}">scrollTo(0, 0);</h:outputScript>
+    </f:view>
+</h:body>
+
+</HTML>

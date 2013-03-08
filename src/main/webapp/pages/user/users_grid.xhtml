@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:s="http://el.security.shiro/func"
+                template="/resources/templates/default.xhtml">
+    <ui:define name="content">
+
+        <h:form id="users_form">
+
+            <p:growl id="messages"/>
+
+            <p:outputPanel id="buttons_panel">
+                <p:commandButton value="New" icon="ui-icon-plus"/>
+                <p:commandButton value="View" icon="ui-icon-info" disabled="#{user_ctrl.selectedUser == null}"/>
+                <p:commandButton value="Edit" icon="ui-icon-pencil" disabled="#{user_ctrl.selectedUser == null}"/>
+                <p:commandButton value="Enable" action="#{user_ctrl.enable}" update="users_dt messages"
+                                 disabled="#{user_ctrl.selectedUser == null}" icon="ui-icon-circle-check"/>
+                <p:commandButton value="Disable" action="#{user_ctrl.disable}" update="users_dt messages"
+                                 disabled="#{user_ctrl.selectedUser == null}" icon="ui-icon-circle-close"/>
+                <p:commandButton value="Unlock &amp; Reset Pwd" action="#{user_ctrl.unlockAndResetPwd}"
+                                 disabled="#{user_ctrl.selectedUser == null}" icon="ui-icon-unlocked"/>
+                <p:commandButton value="Delete" action="#{user_ctrl.delete}" update="users_dt messages"
+                                 disabled="#{user_ctrl.selectedUser == null}" icon="ui-icon-trash"/>
+                <p:commandButton value="Undelete" action="#{user_ctrl.undelete}" update="users_dt messages"
+                                 disabled="#{user_ctrl.selectedUser == null}" icon="ui-icon-arrowreturnthick-1-n"
+                                 rendered="#{s:hasPermission('menu:undelete')}"/>
+            </p:outputPanel>
+
+            <p:dataTable id="users_dt" value="#{usersList}" var="user"
+                         selectionMode="single" selection="#{user_ctrl.selectedUser}" rowKey="#{user.id}"
+                         paginator="true" rows="20" paginatorPosition="bottom">
+
+                <f:facet name="header">
+                    <h:outputText id="users_dth" value="Users List"/>
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":users_form:buttons_panel"/>
+                <p:ajax event="rowUnselect" update=":users_form:buttons_panel"/>
+
+                <!--p:ajax event="rowDblselect" oncomplete="viewUserDetails.show();" update=":viewUserDetailsDialog_pg"/-->
+
+                <p:column headerText="First Name">
+                    <h:outputText value="#{user.firstName}"/>
+                </p:column>
+                <p:column headerText="Last Name">
+                    <h:outputText value="#{user.lastName}"/>
+                </p:column>
+                <p:column headerText="EMail">
+                    <h:outputText value="#{user.email}"/>
+                </p:column>
+                <p:column headerText="Username">
+                    <h:outputText value="#{user.username}"/>
+                </p:column>
+                <p:column headerText="Roles">
+                    <h:outputText value="#{user.rolesAsString}"/>
+                </p:column>
+                <p:column headerText="Last Login Date">
+                    <h:outputText value="#{user.lastLoginDate}">
+                        <f:convertDateTime pattern="dd/MM/yy HH:mm"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Enabled">
+                    <h:outputText value="#{user.enabled}"/>
+                </p:column>
+                <p:column headerText="Locked">
+                    <h:outputText value="#{user.locked}"/>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/resources/templates/default_no_menu.xhtml">
+    <ui:define name="content">
+
+        <h:form id="users_form">
+
+            <p:panel id="account_panel" styleClass="account_details" header="#{msg.page_title_account}">
+
+                <p>
+                    <h:outputText id="forced_pwd_change_msg_1"
+                                  value="#{msg.account_page_first_loging_1}"
+                                  rendered="#{personal_ctrl.user.forcePasswordChangeOnNextLogin}"/>
+                </p>
+                <p>
+                    <h:outputText id="forced_pwd_change_msg_2"
+                                  value="#{msg.account_page_first_loging_2}"
+                                  rendered="#{personal_ctrl.user.forcePasswordChangeOnNextLogin}"/>
+                </p>
+
+                <p:outputPanel id="account_details" styleClass="input_form account_input_form ui-helper-clearfix">
+
+                    <p:outputLabel styleClass="dialogLabel" value="Username : "/>
+                    <p:inputText id="username" value="#{account_ctrl.user.username}"/>
+                    <p:message id="usernameMsg" for="username"/>
+
+                    <p:outputLabel styleClass="dialogLabel" value="Password : "/>
+                    <p:password id="password" value="#{account_ctrl.password}" match="passwordConfirm"
+                                label="Password"/>
+                    <p:message id="password_msg" for="password" showDetail="true"/>
+
+                    <p:outputLabel styleClass="dialogLabel" value="Confirm Password : "/>
+                    <p:password id="passwordConfirm" value="#{account_ctrl.passwordConfirm}" label="Password Confirm"/>
+
+                </p:outputPanel>
+
+                <p:commandButton value="Save" action="#{account_ctrl.save}" update="account_details"
+                                 oncomplete="if ( !args.validationFailed ) logout_dlg.show();"/>
+
+                <p:button value="Back" outcome="/pages/main?faces-redirect=true"
+                          rendered="#{!personal_ctrl.user.forcePasswordChangeOnNextLogin}"/>
+
+            </p:panel>
+
+        </h:form>
+
+        <p:dialog id="dialog" width="300" height="100" header="Succes" closable="false" closeOnEscape="false"
+                  widgetVar="logout_dlg">
+
+            <!-- TODO : need a better CSS for this dialog -->
+            <h:form>
+                <h:outputText value="#{msg.account_page_forced_logout}"/>
+                <p:commandButton id="logout_btn" value="Logout" action="#{auth_ctrl.logout}"/>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
